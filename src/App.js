@@ -17,11 +17,9 @@ const App = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const isNowMobile = window.innerWidth < 1000;
-      setIsMobile(isNowMobile);
-      if (!isNowMobile) {
-        setMenuOpen(false); // Close mobile menu when resizing to desktop
-      }
+      const nowMobile = window.innerWidth < 1000;
+      setIsMobile(nowMobile);
+      if (!nowMobile) setMenuOpen(false);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -51,7 +49,7 @@ const App = () => {
 
           <ul className="nav-links">
             <li
-              className={`nav-link-item ${dropdownOpen.features ? 'link-open' : ''}`}
+              className={`nav-link ${dropdownOpen.features ? 'link-open' : ''}`}
               onClick={() => toggleDropdown('features')}
             >
               Features <span>{dropdownOpen.features ? '▲' : '▼'}</span>
@@ -72,7 +70,7 @@ const App = () => {
             </li>
 
             <li
-              className={`nav-link-item ${dropdownOpen.company ? 'link-open' : ''}`}
+              className={`nav-link ${dropdownOpen.company ? 'link-open' : ''}`}
               onClick={() => toggleDropdown('company')}
             >
               Company <span>{dropdownOpen.company ? '▲' : '▼'}</span>
@@ -103,13 +101,18 @@ const App = () => {
           </div>
         </nav>
 
-        <button
-          className={menuOpen ? 'close-menu' : 'open-menu'}
-          onClick={toggleMenu}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          <img src={menuOpen ? closeIcon : menuIcon} alt={menuOpen ? 'Close menu' : 'Open menu'} />
-        </button>
+        {/* Show only one menu button at a time */}
+        {!menuOpen && (
+          <button className="open-menu" onClick={toggleMenu} aria-label="Open menu">
+            <img src={menuIcon} alt="Open menu" />
+          </button>
+        )}
+
+        {menuOpen && (
+          <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
+            <img src={closeIcon} alt="Close menu" />
+          </button>
+        )}
 
         <div
           className="overlay"
@@ -128,7 +131,8 @@ const App = () => {
           <div className="text-content">
             <h1>Make remote work</h1>
             <p>
-              Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.
+              Get your team in sync, no matter your location. Streamline processes,
+              create team rituals, and watch productivity soar.
             </p>
             <button className="learn-more">Learn more</button>
           </div>
