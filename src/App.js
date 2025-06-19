@@ -17,18 +17,22 @@ const App = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1000);
-      if (!isMobile) setMenuOpen(false); // Close menu on desktop resize
+      const isNowMobile = window.innerWidth < 1000;
+      setIsMobile(isNowMobile);
+      if (!isNowMobile) {
+        setMenuOpen(false); // Close mobile menu when resizing to desktop
+      }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isMobile]);
+  }, []);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
   const toggleDropdown = (type) => {
-    setDropdownOpen(prev => ({
+    setDropdownOpen((prev) => ({
       ...prev,
-      [type]: !prev[type]
+      [type]: !prev[type],
     }));
   };
 
@@ -36,56 +40,102 @@ const App = () => {
     <div className="app-container">
       <header>
         <img src={logo} alt="snap's logo" className="logo" />
-        <nav className={menuOpen || !isMobile ? 'nav' : 'nav closed'}>
+
+        <nav
+          className="nav"
+          style={{ display: isMobile && !menuOpen ? 'none' : 'block' }}
+        >
           <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
             <img src={closeIcon} alt="Close menu" />
           </button>
-          <ul className="nav-link">
-            <li className={`nav-link ${dropdownOpen.features ? 'link-open' : ''}`} onClick={() => toggleDropdown('features')}>
+
+          <ul className="nav-links">
+            <li
+              className={`nav-link-item ${dropdownOpen.features ? 'link-open' : ''}`}
+              onClick={() => toggleDropdown('features')}
+            >
               Features <span>{dropdownOpen.features ? '▲' : '▼'}</span>
               <ul className="dropdown-list">
-                <li className="dropdown-link"><a href="#todo" aria-label="todo-list">Todo List</a></li>
-                <li className="dropdown-link"><a href="#calendar">Calendar</a></li>
-                <li className="dropdown-link"><a href="#reminders">Reminders</a></li>
-                <li className="dropdown-link"><a href="#planning">Planning</a></li>
+                <li className="dropdown-link">
+                  <a href="#todo" aria-label="todo-list">Todo List</a>
+                </li>
+                <li className="dropdown-link">
+                  <a href="#calendar">Calendar</a>
+                </li>
+                <li className="dropdown-link">
+                  <a href="#reminders">Reminders</a>
+                </li>
+                <li className="dropdown-link">
+                  <a href="#planning">Planning</a>
+                </li>
               </ul>
             </li>
-            <li className={`nav-link ${dropdownOpen.company ? 'link-open' : ''}`} onClick={() => toggleDropdown('company')}>
+
+            <li
+              className={`nav-link-item ${dropdownOpen.company ? 'link-open' : ''}`}
+              onClick={() => toggleDropdown('company')}
+            >
               Company <span>{dropdownOpen.company ? '▲' : '▼'}</span>
               <ul className="dropdown-list">
-                <li className="dropdown-link"><a href="#history">History</a></li>
-                <li className="dropdown-link"><a href="#our-team">Our Team</a></li>
-                <li className="dropdown-link"><a href="#blog">Blog</a></li>
+                <li className="dropdown-link">
+                  <a href="#history">History</a>
+                </li>
+                <li className="dropdown-link">
+                  <a href="#our-team">Our Team</a>
+                </li>
+                <li className="dropdown-link">
+                  <a href="#blog">Blog</a>
+                </li>
               </ul>
             </li>
-            <li className="nav-item"><a href="#careers">Careers</a></li>
-            <li className="nav-item"><a href="#about">About</a></li>
+
+            <li className="nav-item">
+              <a href="#careers">Careers</a>
+            </li>
+            <li className="nav-item">
+              <a href="#about">About</a>
+            </li>
           </ul>
+
           <div className="registration">
             <button>Login</button>
             <button>Register</button>
           </div>
         </nav>
-        <button className={menuOpen ? 'close-menu' : 'open-menu'} onClick={toggleMenu} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
+
+        <button
+          className={menuOpen ? 'close-menu' : 'open-menu'}
+          onClick={toggleMenu}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        >
           <img src={menuOpen ? closeIcon : menuIcon} alt={menuOpen ? 'Close menu' : 'Open menu'} />
         </button>
-        <div className={`overlay ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}></div>
+
+        <div
+          className="overlay"
+          style={{ display: menuOpen ? 'block' : 'none', opacity: menuOpen ? 1 : 0 }}
+          onClick={toggleMenu}
+        />
       </header>
 
       <main>
         <div className="hero">
           <picture>
-            <source media="(min-width: 1000px)" srcSet={heroDesktop} />
-            <img src={heroMobile} alt="Hero image" />
+            <source media="(min-width: 1000px)" srcSet="./assets/images/image-hero-desktop.png" />
+            <img src="./assets/images/image-hero-mobile.png" alt="Hero image" />
           </picture>
+
           <div className="text-content">
             <h1>Make remote work</h1>
-            <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
+            <p>
+              Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.
+            </p>
             <button className="learn-more">Learn more</button>
           </div>
         </div>
+
         <div className="clients">
-         <img src='./assets/images/client-databiz.svg' alt="Databiz" />
+          <img src='./assets/images/client-databiz.svg' alt="Databiz" />
           <img src='./assets/images/client-audiophile.svg' alt="Audiophile" />
           <img src='./assets/images/client-meet.svg' alt="Meet" />
           <img src='./assets/images/client-maker.svg' alt="Maker" />
@@ -93,12 +143,12 @@ const App = () => {
       </main>
 
       <footer className="attribution">
-        <p>Challenge by <a href="https://crio.do" target="_blank">Crio.Do</a>.</p>
+        <p>
+          Challenge by <a href="https://crio.do" target="_blank" rel="noopener noreferrer">Crio.Do</a>.
+        </p>
       </footer>
     </div>
   );
 };
 
 export default App;
-      
-
