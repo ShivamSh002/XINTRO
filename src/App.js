@@ -103,14 +103,14 @@ const App = () => {
           </div>
         </nav>
 
-        {/* Only render one button at a time */}
+        {/* Open and Close Menu Buttons */}
         {!menuOpen && (
           <button className="open-menu" onClick={toggleMenu} aria-label="Open menu">
             <img src={menuIcon} alt="Open menu" />
           </button>
         )}
 
-        {menuOpen && isMobile && (
+        {menuOpen && (
           <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
             <img src={closeIcon} alt="Close menu" />
           </button>
