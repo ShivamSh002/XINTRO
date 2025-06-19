@@ -43,17 +43,16 @@ const App = () => {
           className="nav"
           style={{ display: isMobile && !menuOpen ? 'none' : 'block' }}
         >
-          <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
-            <img src={closeIcon} alt="Close menu" />
-          </button>
-
           <ul className="nav-links">
             <li
               className={`nav-link ${dropdownOpen.features ? 'link-open' : ''}`}
               onClick={() => toggleDropdown('features')}
             >
               Features <span>{dropdownOpen.features ? '▲' : '▼'}</span>
-              <ul className="dropdown-list">
+              <ul
+                className="dropdown-list"
+                style={{ display: dropdownOpen.features ? 'block' : 'none' }}
+              >
                 <li className="dropdown-link">
                   <a href="#todo" aria-label="todo-list">Todo List</a>
                 </li>
@@ -74,7 +73,10 @@ const App = () => {
               onClick={() => toggleDropdown('company')}
             >
               Company <span>{dropdownOpen.company ? '▲' : '▼'}</span>
-              <ul className="dropdown-list">
+              <ul
+                className="dropdown-list"
+                style={{ display: dropdownOpen.company ? 'block' : 'none' }}
+              >
                 <li className="dropdown-link">
                   <a href="#history">History</a>
                 </li>
@@ -101,14 +103,14 @@ const App = () => {
           </div>
         </nav>
 
-        {/* Show only one menu button at a time */}
+        {/* Only render one button at a time */}
         {!menuOpen && (
           <button className="open-menu" onClick={toggleMenu} aria-label="Open menu">
             <img src={menuIcon} alt="Open menu" />
           </button>
         )}
 
-        {menuOpen && (
+        {menuOpen && isMobile && (
           <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
             <img src={closeIcon} alt="Close menu" />
           </button>
@@ -139,10 +141,10 @@ const App = () => {
         </div>
 
         <div className="clients">
-          <img src='./assets/images/client-databiz.svg' alt="Databiz" />
-          <img src='./assets/images/client-audiophile.svg' alt="Audiophile" />
-          <img src='./assets/images/client-meet.svg' alt="Meet" />
-          <img src='./assets/images/client-maker.svg' alt="Maker" />
+          <img src="./assets/images/client-databiz.svg" alt="Databiz" />
+          <img src="./assets/images/client-audiophile.svg" alt="Audiophile" />
+          <img src="./assets/images/client-meet.svg" alt="Meet" />
+          <img src="./assets/images/client-maker.svg" alt="Maker" />
         </div>
       </main>
 
