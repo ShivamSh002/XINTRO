@@ -3,7 +3,7 @@ import './App.css';
 import logo from './assets/images/logo.svg';
 import heroMobile from './assets/images/image-hero-mobile.png';
 import heroDesktop from './assets/images/image-hero-desktop.png';
-import databiz from './assets/images/client-databiz.svg'; 
+import databiz from './assets/images/client-databiz.svg';
 import audiophile from './assets/images/client-audiophile.svg';
 import meet from './assets/images/client-meet.svg';
 import maker from './assets/images/client-maker.svg';
@@ -26,19 +26,22 @@ const App = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleDropdown = (type) => {
-    setDropdownOpen(prev => ({ ...prev, [type]: !prev[type] }));
+    setDropdownOpen(prev => ({
+      ...prev,
+      [type]: !prev[type]
+    }));
   };
 
   return (
     <div className="app-container">
       <header>
         <img src={logo} alt="snap's logo" className="logo" />
-        <nav className={menuOpen ? 'nav open' : 'nav'}>
+        <nav className={menuOpen || !isMobile ? 'nav' : 'nav closed'}>
           <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
             <img src={closeIcon} alt="Close menu" />
           </button>
           <ul className="nav-link">
-            <li className={`nav-link ${dropdownOpen.features ? 'active' : ''}`} onClick={() => toggleDropdown('features')}>
+            <li className={`nav-link ${dropdownOpen.features ? 'link-open' : ''}`} onClick={() => toggleDropdown('features')}>
               Features <span>{dropdownOpen.features ? '▲' : '▼'}</span>
               <ul className="dropdown-list">
                 <li className="dropdown-link"><a href="#todo" aria-label="todo-list">Todo List</a></li>
@@ -47,7 +50,7 @@ const App = () => {
                 <li className="dropdown-link"><a href="#planning">Planning</a></li>
               </ul>
             </li>
-            <li className={`nav-link ${dropdownOpen.company ? 'active' : ''}`} onClick={() => toggleDropdown('company')}>
+            <li className={`nav-link ${dropdownOpen.company ? 'link-open' : ''}`} onClick={() => toggleDropdown('company')}>
               Company <span>{dropdownOpen.company ? '▲' : '▼'}</span>
               <ul className="dropdown-list">
                 <li className="dropdown-link"><a href="#history">History</a></li>
@@ -55,13 +58,11 @@ const App = () => {
                 <li className="dropdown-link"><a href="#blog">Blog</a></li>
               </ul>
             </li>
-            <li className="nav-link"><a href="#careers">Careers</a></li>
-            <li className="nav-link"><a href="#about">About</a></li>
+            <li className="nav-item"><a href="#careers">Careers</a></li>
+            <li className="nav-item"><a href="#about">About</a></li>
           </ul>
           <div className="registration">
             <button>Login</button>
-          </div>
-          <div className="registration">
             <button>Register</button>
           </div>
         </nav>
@@ -72,6 +73,7 @@ const App = () => {
       </header>
 
       <main>
+        <div className="hero">
           <picture>
             <source media="(min-width: 1000px)" srcSet={heroDesktop} />
             <img src={heroMobile} alt="Hero image" />
@@ -81,9 +83,9 @@ const App = () => {
             <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
             <button className="learn-more">Learn more</button>
           </div>
-        
+        </div>
         <div className="clients">
-          <img src='./assets/images/client-databiz.svg' alt="Databiz" />
+         <img src='./assets/images/client-databiz.svg' alt="Databiz" />
           <img src='./assets/images/client-audiophile.svg' alt="Audiophile" />
           <img src='./assets/images/client-meet.svg' alt="Meet" />
           <img src='./assets/images/client-maker.svg' alt="Maker" />
@@ -98,3 +100,5 @@ const App = () => {
 };
 
 export default App;
+      
+
