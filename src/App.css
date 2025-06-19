@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 0 24px;
   font-family: 'Arial', sans-serif;
+  position: relative;
 }
 
 header {
@@ -11,10 +12,12 @@ header {
   align-items: center;
   padding: 24px 0;
   position: relative;
+  z-index: 20;
 }
 
 .logo {
   height: 24px;
+  z-index: 20;
 }
 
 .nav {
@@ -33,16 +36,22 @@ header {
   position: relative;
   margin-left: 32px;
   cursor: pointer;
+  padding: 8px 0;
 }
 
 .nav-link a {
   text-decoration: none;
   color: #000;
   font-size: 16px;
+  padding: 8px;
 }
 
 .nav-link:hover a {
   color: #6366F1;
+}
+
+.nav-link.active .dropdown-list {
+  display: block;
 }
 
 .dropdown-list {
@@ -55,10 +64,7 @@ header {
   padding: 8px 0;
   min-width: 200px;
   z-index: 10;
-}
-
-.dropdown-list.open {
-  display: block;
+  border-radius: 8px;
 }
 
 .dropdown-link a {
@@ -74,6 +80,8 @@ header {
 
 .registration {
   margin-left: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .registration button {
@@ -83,10 +91,13 @@ header {
   font-size: 16px;
   margin-left: 24px;
   cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
 .registration button:hover {
   color: #000;
+  background: #F3F4F6;
 }
 
 .open-menu, .close-menu {
@@ -94,6 +105,12 @@ header {
   border: none;
   background: none;
   cursor: pointer;
+  z-index: 20;
+}
+
+.open-menu img, .close-menu img {
+  width: 24px;
+  height: 24px;
 }
 
 .overlay {
@@ -105,7 +122,8 @@ header {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
+  z-index: 15;
 }
 
 .overlay.open {
@@ -119,24 +137,35 @@ header {
   align-items: center;
   text-align: center;
   margin-top: 48px;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero-image {
+picture {
+  display: block;
   width: 100%;
   max-width: 600px;
   margin-bottom: 32px;
+}
+
+picture img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .text-content h1 {
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 24px;
+  color: #000;
 }
 
 .text-content p {
   color: #6B7280;
   line-height: 1.5;
   margin-bottom: 24px;
+  max-width: 400px;
 }
 
 .learn-more {
@@ -146,6 +175,7 @@ header {
   padding: 12px 24px;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .learn-more:hover {
@@ -156,16 +186,25 @@ header {
   display: flex;
   justify-content: space-between;
   margin-top: 48px;
+  max-width: 600px;
+  width: 100%;
 }
 
 .clients img {
   height: 24px;
+  width: auto;
+  opacity: 0.5;
+}
+
+.clients img:hover {
+  opacity: 1;
 }
 
 .attribution {
   text-align: center;
   margin-top: 48px;
   color: #6B7280;
+  padding: 16px 0;
 }
 
 .attribution a {
@@ -192,7 +231,9 @@ header {
     height: 100%;
     background: #fff;
     padding: 24px;
-    z-index: 1000;
+    z-index: 20;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
   }
 
   .nav-links {
@@ -202,16 +243,26 @@ header {
 
   .nav-link {
     margin: 16px 0;
+    width: 100%;
+  }
+
+  .nav-link .dropdown-list {
+    position: static;
+    box-shadow: none;
+    padding-left: 16px;
   }
 
   .registration {
     margin-top: 24px;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .registration button {
     margin: 8px 0;
+    width: 100%;
+    text-align: left;
   }
 
   .open-menu, .close-menu {
@@ -220,9 +271,16 @@ header {
 
   .close-menu {
     align-self: flex-end;
+    margin-bottom: 16px;
   }
 
   .overlay.open {
+    display: block;
+  }
+}
+
+@media (min-width: 1000px) {
+  .nav-link:hover .dropdown-list {
     display: block;
   }
 }
