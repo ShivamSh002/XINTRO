@@ -3,7 +3,7 @@ import './App.css';
 import logo from './assets/images/logo.svg';
 import heroMobile from './assets/images/image-hero-mobile.png';
 import heroDesktop from './assets/images/image-hero-desktop.png';
-import databiz from './assets/images/client-databiz.svg';
+import databiz from './assets/images/client-databiz.svg'; 
 import audiophile from './assets/images/client-audiophile.svg';
 import meet from './assets/images/client-meet.svg';
 import maker from './assets/images/client-maker.svg';
@@ -37,7 +37,7 @@ const App = () => {
           <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">
             <img src={closeIcon} alt="Close menu" />
           </button>
-          <ul className="nav-links">
+          <ul className="nav-link">
             <li className={`nav-link ${dropdownOpen.features ? 'active' : ''}`} onClick={() => toggleDropdown('features')}>
               Features <span>{dropdownOpen.features ? '▲' : '▼'}</span>
               <ul className="dropdown-list">
@@ -60,6 +60,8 @@ const App = () => {
           </ul>
           <div className="registration">
             <button>Login</button>
+          </div>
+          <div className="registration">
             <button>Register</button>
           </div>
         </nav>
@@ -70,7 +72,6 @@ const App = () => {
       </header>
 
       <main>
-        <div className="hero">
           <picture>
             <source media="(min-width: 1000px)" srcSet={heroDesktop} />
             <img src={heroMobile} alt="Hero image" />
@@ -80,12 +81,12 @@ const App = () => {
             <p>Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</p>
             <button className="learn-more">Learn more</button>
           </div>
-        </div>
+        
         <div className="clients">
-          <img src={databiz} alt="Databiz" />
-          <img src={audiophile} alt="Audiophile" />
-          <img src={meet} alt="Meet" />
-          <img src={maker} alt="Maker" />
+          <img src='./assets/images/client-databiz.svg' alt="Databiz" />
+          <img src='./assets/images/client-audiophile.svg' alt="Audiophile" />
+          <img src='./assets/images/client-meet.svg' alt="Meet" />
+          <img src='./assets/images/client-maker.svg' alt="Maker" />
         </div>
       </main>
 
